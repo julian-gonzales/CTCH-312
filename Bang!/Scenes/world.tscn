@@ -1,0 +1,43 @@
+[gd_scene load_steps=7 format=3 uid="uid://d0l164yq0wuw8"]
+
+[ext_resource type="Texture2D" uid="uid://cokyput8tqol2" path="res://Art/Wood04_basecolor.jpg" id="1_12cjn"]
+[ext_resource type="PackedScene" uid="uid://bn3q7upes2ojm" path="res://Scenes/player.tscn" id="1_ptpdc"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ny4lt"]
+albedo_texture = ExtResource("1_12cjn")
+uv1_triplanar = true
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_632y0"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_if3de"]
+sky_material = SubResource("ProceduralSkyMaterial_632y0")
+
+[sub_resource type="Environment" id="Environment_m450a"]
+background_mode = 2
+sky = SubResource("Sky_if3de")
+tonemap_mode = 2
+glow_enabled = true
+
+[node name="World" type="Node3D"]
+
+[node name="Stage" type="Node3D" parent="."]
+transform = Transform3D(1, -1.49012e-08, -1.49012e-08, -1.49012e-08, 1, -2.98023e-08, -1.49012e-08, 0, 1, 1.19209e-07, -4.76837e-07, -2.38419e-07)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Stage"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+use_collision = true
+size = Vector3(50, 1, 50)
+material = SubResource("StandardMaterial3D_ny4lt")
+
+[node name="Environment" type="Node3D" parent="."]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Environment"]
+environment = SubResource("Environment_m450a")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment"]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 7.22786, 0)
+shadow_enabled = true
+
+[node name="Player" parent="." instance=ExtResource("1_ptpdc")]
