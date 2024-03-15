@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://di8iw88n3o0uu"]
+
+[ext_resource type="PackedScene" uid="uid://bda5rurykijyy" path="res://Systems/Interaction/Interactor.tscn" id="1_7srto"]
+[ext_resource type="Script" path="res://Systems/Interaction/PlayerInteractor.gd" id="2_ocla7"]
+
+[node name="PlayerInteractor" instance=ExtResource("1_7srto")]
+script = ExtResource("2_ocla7")
+
+[connection signal="area_exited" from="." to="." method="_on_area_exited"]

@@ -28,6 +28,11 @@ func _physics_process(delta):
 	else:
 		curr_speed = walking_speed
 	
+	if Input.is_action_pressed("mouse"):
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	else:
+		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	
 	# Add the gravity.
 	if not is_on_floor():
 		velocity.y -= gravity * delta

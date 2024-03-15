@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://cdedwhmsht3ak"]
+
+[ext_resource type="Script" path="res://Systems/ShooterGame/ShooterBox.gd" id="1_um3de"]
+[ext_resource type="PackedScene" uid="uid://d2pbvppj3p7oa" path="res://Systems/Interaction/Interactable.tscn" id="2_xq3mo"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vi2kl"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_g2qpj"]
+
+[node name="ShooterBox" type="CSGBox3D"]
+transform = Transform3D(1, 0, 0, -4.4409e-16, 1, 0, 0, 0, 1, -1.35759e-07, 0.5, -9.11062)
+use_collision = true
+material = SubResource("StandardMaterial3D_vi2kl")
+script = ExtResource("1_um3de")
+
+[node name="Interactable" parent="." instance=ExtResource("2_xq3mo")]
+
+[node name="CollisionShape3D" parent="Interactable" index="0"]
+shape = SubResource("BoxShape3D_g2qpj")
+
+[connection signal="focused" from="Interactable" to="." method="_on_interactable_focused"]
+[connection signal="interacted" from="Interactable" to="." method="_on_interactable_interacted"]
+[connection signal="unfocused" from="Interactable" to="." method="_on_interactable_unfocused"]
+
+[editable path="Interactable"]
