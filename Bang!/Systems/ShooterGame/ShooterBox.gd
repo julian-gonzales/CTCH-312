@@ -8,6 +8,7 @@ func _on_interactable_focused(interactor):
 
 func _on_interactable_interacted(interactor):
 	print("interacted")
+	
 
 
 func _on_interactable_unfocused(interactor):

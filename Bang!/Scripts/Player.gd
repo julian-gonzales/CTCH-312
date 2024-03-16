@@ -1,6 +1,7 @@
 extends CharacterBody3D
 
 @onready var head = $Head
+@onready var gun_animation = $Head/Camera3D/Revolver/AnimationPlayer
 
 var curr_speed : float = 5.0
 var walking_speed : float = 5.0
@@ -51,5 +52,9 @@ func _physics_process(delta):
 	else:
 		velocity.x = move_toward(velocity.x, 0, curr_speed)
 		velocity.z = move_toward(velocity.z, 0, curr_speed)
+		
+	if Input.is_action_pressed("shoot"):
+		if !gun_animation.is_playing():
+			gun_animation.play("shoot")
 
 	move_and_slide()

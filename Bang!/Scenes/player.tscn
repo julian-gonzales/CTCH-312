@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://bn3q7upes2ojm"]
+[gd_scene load_steps=6 format=3 uid="uid://bn3q7upes2ojm"]
 
 [ext_resource type="Script" path="res://Scripts/Player.gd" id="1_dgfqc"]
 [ext_resource type="PackedScene" uid="uid://di8iw88n3o0uu" path="res://Systems/Interaction/PlayerInteractor.tscn" id="2_vcwhj"]
+[ext_resource type="PackedScene" uid="uid://brgmrsjltk2ln" path="res://Systems/ShooterGame/Revolver.tscn" id="3_g56go"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_nnput"]
 
@@ -21,6 +22,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
 
 [node name="PlayerInteractor" parent="Head" node_paths=PackedStringArray("player") instance=ExtResource("2_vcwhj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.8, 0)
+visible = false
 player = NodePath("../..")
 
 [node name="CollisionShape3D" parent="Head/PlayerInteractor" index="0"]
@@ -28,5 +30,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.99768, -0.387232)
 shape = SubResource("BoxShape3D_u85yi")
 
 [node name="Camera3D" type="Camera3D" parent="Head"]
+
+[node name="Revolver" parent="Head/Camera3D" instance=ExtResource("3_g56go")]
+transform = Transform3D(0.003, 0, 0, 0, 0.003, 0, 0, 0, 0.003, 0.427233, -0.583953, -0.849201)
 
 [editable path="Head/PlayerInteractor"]
