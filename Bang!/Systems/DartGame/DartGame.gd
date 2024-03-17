@@ -4,13 +4,15 @@ extends CSGCylinder3D
 
 var SCORES = [20, 5, 12, 9, 14, 11, 8, 16, 7, 19, 3, 17, 2, 15, 10	, 6, 13, 4, 18, 1]
 var is_playing: bool = false
+var is_throwing: bool = false
 
 func _on_interactable_focused(interactor):
 	pass
 
 func _input(event):
-	if Input.is_action_just_pressed("jump") && is_playing:
+	if Input.is_action_just_pressed("jump") && is_playing && !is_throwing:
 		throw_dart()
+		is_throwing = true
 
 func _on_interactable_interacted(interactor):
 	is_playing = !is_playing
@@ -101,6 +103,7 @@ func _on_game_board_shape_body_entered(body):
 		score = 0
 	
 	print(score)
+	is_throwing = false
 
 func get_section_score(hit_point: Vector2) -> int:
 	var zero_angle = $ZeroAngle.transform.origin
