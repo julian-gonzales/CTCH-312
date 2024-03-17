@@ -70,3 +70,9 @@ func place_and_lock_player(player_position: Vector3, target: Node3D):
 
 func unlock_player(target):
 	can_move = true
+
+func show_dart():
+	$Head/Camera3D/Dart.show()
+
+func hide_dart():
+	$Head/Camera3D/Dart.hide()

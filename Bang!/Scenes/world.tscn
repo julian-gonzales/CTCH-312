@@ -35,7 +35,7 @@ material = SubResource("StandardMaterial3D_ny4lt")
 metadata/_edit_lock_ = true
 
 [node name="DartGame" parent="Stage" node_paths=PackedStringArray("player") instance=ExtResource("2_eoq0f")]
-transform = Transform3D(0.03, 0, 0, 0, 0.03, 0, 0, 0, 0.03, 5, 1.8, -9.111)
+transform = Transform3D(0.03, 0, 0, 0, -1.31134e-09, -0.03, 0, 0.03, -1.31134e-09, 5, 1.8, -9.111)
 player = NodePath("../../Player")
 
 [node name="ShooterBox" parent="Stage" instance=ExtResource("2_nnvxg")]

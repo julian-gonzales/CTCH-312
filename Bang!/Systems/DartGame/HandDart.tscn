@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://buxbv534u5mii"]
+
+[ext_resource type="ArrayMesh" uid="uid://bwkdo86vn11w1" path="res://Art/DartGame/11750_throwing_dart_v1_L3.obj" id="1_0tfmv"]
+[ext_resource type="Texture2D" uid="uid://c7btv3rxtirqv" path="res://Art/DartGame/throwing_dart_diffuse.jpg" id="2_5h7yr"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a44e8"]
+albedo_texture = ExtResource("2_5h7yr")
+
+[node name="HandDart" type="MeshInstance3D"]
+transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0, 0, 0)
+mesh = ExtResource("1_0tfmv")
+surface_material_override/0 = SubResource("StandardMaterial3D_a44e8")
+
+[node name="Direction" type="RayCast3D" parent="."]
+target_position = Vector3(0, 0, -1)
