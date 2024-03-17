@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://d0l164yq0wuw8"]
+[gd_scene load_steps=9 format=3 uid="uid://d0l164yq0wuw8"]
 
 [ext_resource type="Texture2D" uid="uid://cokyput8tqol2" path="res://Art/Wood04_basecolor.jpg" id="1_12cjn"]
 [ext_resource type="PackedScene" uid="uid://bn3q7upes2ojm" path="res://Scenes/player.tscn" id="1_ptpdc"]
+[ext_resource type="PackedScene" uid="uid://4g7hsk4l53k5" path="res://Systems/DartGame/DartGame.tscn" id="2_eoq0f"]
 [ext_resource type="PackedScene" uid="uid://cdedwhmsht3ak" path="res://Systems/ShooterGame/ShooterGame.tscn" id="2_nnvxg"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ny4lt"]
@@ -31,6 +32,11 @@ transform = Transform3D(1, 0, 0, -4.4409e-16, 1, 0, 0, 0, 1, 0, -0.5, 0)
 use_collision = true
 size = Vector3(50, 1, 50)
 material = SubResource("StandardMaterial3D_ny4lt")
+metadata/_edit_lock_ = true
+
+[node name="DartGame" parent="Stage" node_paths=PackedStringArray("player") instance=ExtResource("2_eoq0f")]
+transform = Transform3D(0.03, 0, 0, 0, -1.31134e-09, -0.03, 0, 0.03, -1.31134e-09, 5, 1.8, -9.111)
+player = NodePath("../../Player")
 
 [node name="ShooterBox" parent="Stage" instance=ExtResource("2_nnvxg")]
 
