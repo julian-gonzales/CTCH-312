@@ -1,7 +1,9 @@
-extends CharacterBody3D
+class_name Player extends CharacterBody3D
 
 @onready var head = $Head
 @onready var gun_animation = $Head/Camera3D/Revolver/AnimationPlayer
+
+var can_move : bool = true
 
 var curr_speed : float = 5.0
 var walking_speed : float = 5.0
@@ -39,7 +41,7 @@ func _physics_process(delta):
 		velocity.y -= gravity * delta
 
 	# Handle jump.
-	if Input.is_action_just_pressed("jump") and is_on_floor():
+	if Input.is_action_just_pressed("jump") and is_on_floor() and can_move:
 		velocity.y = JUMP_VELOCITY
 
 	# Get the input direction and handle the movement/deceleration.
@@ -57,4 +59,25 @@ func _physics_process(delta):
 		if !gun_animation.is_playing():
 			gun_animation.play("shoot")
 
-	move_and_slide()
+	if can_move:
+		move_and_slide()
+
+func place_and_lock_player(player_position: Vector3, target: Node3D):
+	#Place player
+	self.position = player_position
+	
+	#Face target
+	var direction = target.global_transform.origin - $Head/Camera3D.global_transform.origin
+	global_transform.basis = Basis().looking_at(direction, Vector3(0, 1, 0))
+	
+	#Lock
+	can_move = false
+
+func unlock_player(target):
+	can_move = true
+
+func show_dart():
+	$Head/Camera3D/Dart.show()
+
+func hide_dart():
+	$Head/Camera3D/Dart.hide()
