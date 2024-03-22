@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://cdedwhmsht3ak"]
+[gd_scene load_steps=6 format=3 uid="uid://cdedwhmsht3ak"]
 
 [ext_resource type="Script" path="res://Systems/ShooterGame/ShooterBox.gd" id="1_um3de"]
 [ext_resource type="PackedScene" uid="uid://d2pbvppj3p7oa" path="res://Systems/Interaction/Interactable.tscn" id="2_xq3mo"]
+[ext_resource type="PackedScene" uid="uid://j8kug6phefvd" path="res://Systems/ShooterGame/ShootingTarget.tscn" id="3_djl3m"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vi2kl"]
 
@@ -17,6 +18,9 @@ script = ExtResource("1_um3de")
 
 [node name="CollisionShape3D" parent="Interactable" index="0"]
 shape = SubResource("BoxShape3D_g2qpj")
+
+[node name="Sketchfab_Scene" parent="." instance=ExtResource("3_djl3m")]
+transform = Transform3D(5.74, 0, 0, 0, 5.74, 0, 0, 0, 5.74, 0.901766, 0.5, -11.8578)
 
 [connection signal="focused" from="Interactable" to="." method="_on_interactable_focused"]
 [connection signal="interacted" from="Interactable" to="." method="_on_interactable_interacted"]

@@ -81,3 +81,9 @@ func show_dart():
 
 func hide_dart():
 	$Head/Camera3D/Dart.hide()
+
+func show_revolver():
+	$Head/Camera3D/Revolver.show()
+
+func hide_revolver():
+	$Head/Camera3D/Revolver.hide()

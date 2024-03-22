@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://j8kug6phefvd"]
+
+[ext_resource type="PackedScene" uid="uid://bggbqyaedlqtr" path="res://Models/shooting_target/target_for_fortnite_creative_2.0_unreal_mods.glb" id="1_f77xh"]
+
+[node name="Sketchfab_Scene" instance=ExtResource("1_f77xh")]

@@ -1,6 +1,22 @@
-[gd_scene load_steps=4 format=3 uid="uid://brgmrsjltk2ln"]
+[gd_scene load_steps=9 format=3 uid="uid://brgmrsjltk2ln"]
 
-[ext_resource type="PackedScene" uid="uid://o5j3yqco3tm5" path="res://Models/38_special_revolver.glb" id="1_i1c6n"]
+[ext_resource type="PackedScene" uid="uid://o5j3yqco3tm5" path="res://Models/revolver/38_special_revolver.glb" id="1_i1c6n"]
+[ext_resource type="Texture2D" uid="uid://ccq8v6fbmo048" path="res://Systems/ShooterGame/muzzle_03.png" id="2_dvhnd"]
+
+[sub_resource type="Animation" id="Animation_10ovw"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GPUParticles3D:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_eayk6"]
 resource_name = "shoot"
@@ -18,11 +34,39 @@ tracks/0/keys = {
 "update": 0,
 "values": [Vector3(0, 0, 0), Vector3(-10, 0, 0), Vector3(0, 0, 0)]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("GPUParticles3D:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.01, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_8dm24"]
 _data = {
+"RESET": SubResource("Animation_10ovw"),
 "shoot": SubResource("Animation_eayk6")
 }
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_831bj"]
+gravity = Vector3(0, 0, 0)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dbosi"]
+transparency = 1
+albedo_color = Color(1, 0.980392, 0, 1)
+albedo_texture = ExtResource("2_dvhnd")
+emission_enabled = true
+emission = Color(1, 0.976471, 0.67451, 1)
+emission_energy_multiplier = 1.46
+
+[sub_resource type="QuadMesh" id="QuadMesh_kwcog"]
+material = SubResource("StandardMaterial3D_dbosi")
+size = Vector2(0.5, 0.5)
 
 [node name="Revolver" instance=ExtResource("1_i1c6n")]
 transform = Transform3D(0.01, 0, 0, 0, 0.01, 0, 0, 0, 0.01, 0, 0, 0)
@@ -31,3 +75,12 @@ transform = Transform3D(0.01, 0, 0, 0, 0.01, 0, 0, 0, 0.01, 0, 0, 0)
 libraries = {
 "": SubResource("AnimationLibrary_8dm24")
 }
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="." index="2"]
+transform = Transform3D(1.91069e-15, 4.37114e-08, -1, 1, -4.37114e-08, 0, -4.37114e-08, -1, -4.37114e-08, 0, 13.482, -204.885)
+emitting = false
+amount = 1
+lifetime = 0.06
+visibility_aabb = AABB(-4, -1.60798, -4, 8, 3.21595, 8)
+process_material = SubResource("ParticleProcessMaterial_831bj")
+draw_pass_1 = SubResource("QuadMesh_kwcog")
