@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://bn3q7upes2ojm"]
+[gd_scene load_steps=8 format=3 uid="uid://bn3q7upes2ojm"]
 
 [ext_resource type="Script" path="res://Scripts/Player.gd" id="1_dgfqc"]
 [ext_resource type="PackedScene" uid="uid://di8iw88n3o0uu" path="res://Systems/Interaction/PlayerInteractor.tscn" id="2_vcwhj"]
 [ext_resource type="PackedScene" uid="uid://brgmrsjltk2ln" path="res://Systems/ShooterGame/Revolver.tscn" id="3_g56go"]
+[ext_resource type="Script" path="res://Scenes/PlayerCamera.gd" id="3_gihyh"]
 [ext_resource type="PackedScene" uid="uid://buxbv534u5mii" path="res://Systems/DartGame/HandDart.tscn" id="3_tq5y3"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_nnput"]
@@ -31,6 +32,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.99768, -0.387232)
 shape = SubResource("BoxShape3D_u85yi")
 
 [node name="Camera3D" type="Camera3D" parent="Head"]
+script = ExtResource("3_gihyh")
 
 [node name="Dart" parent="Head/Camera3D" instance=ExtResource("3_tq5y3")]
 transform = Transform3D(0.05, 0, 0, 0, 0.0473605, -0.0160306, 0, 0.0160306, 0.0473605, 0, -0.584, -1.118)

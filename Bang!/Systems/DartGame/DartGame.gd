@@ -113,3 +113,4 @@ func get_section_score(hit_point: Vector2) -> int:
 	if(section) < 0:
 		section +=20
 	return SCORES[section]
+	
