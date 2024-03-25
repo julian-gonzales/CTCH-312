@@ -53,6 +53,11 @@ visible = false
 text = "12"
 font_size = 64
 
+[node name="Bullets" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.124677, 0.508833, 0)
+visible = false
+text = "Bullets: 6"
+
 [connection signal="focused" from="Interactable" to="." method="_on_interactable_focused"]
 [connection signal="interacted" from="Interactable" to="." method="_on_interactable_interacted"]
 [connection signal="unfocused" from="Interactable" to="." method="_on_interactable_unfocused"]

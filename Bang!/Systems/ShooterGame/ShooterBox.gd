@@ -8,6 +8,7 @@ var Ray_Range = 100
 
 var targets = []
 var score: int = 0
+var bullets: int = 6
 
 func _on_interactable_focused(interactor):
 	#print("in focus")
@@ -21,6 +22,7 @@ func _ready():
 	targets.append(get_node("ShootingTarget5"))
 	targets.append(get_node("ShootingTarget6"))
 	$Score.text = str(score)
+	$Bullets.text = "Bullets: " + str(bullets)
 	
 func _input(event):
 	if event.is_action_pressed("shoot") and is_playing:
@@ -31,11 +33,12 @@ func _input(event):
 
 func _on_interactable_interacted(interactor):
 	is_playing = !is_playing
-	if(is_playing):
+	if is_playing :
 		var player_position = get_player_position()
 		player.place_and_lock_player(player_position, self)
 		player.show_revolver()
 		$Score.show()
+		$Bullets.show()
 		for target in targets:
 			target.show()
 	else:
@@ -44,8 +47,11 @@ func _on_interactable_interacted(interactor):
 		for target in targets:
 			target.hide()
 		score = 0
+		bullets = 6
 		$Score.hide()
+		$Bullets.hide()
 		$Score.text = str(score)
+		$Bullets.text = "Bullets: " + str(bullets)
 
 
 func _on_interactable_unfocused(interactor):
@@ -77,6 +83,22 @@ func get_camera_collision():
 			score += 1
 	else:
 		print("Nothing")
-		
+	bullets -= 1
 	$Score.text = str(score)
+	$Bullets.text = "Bullets: " + str(bullets)
+	
+	if bullets == 0 and (score % 6 == 0):
+		bullets += 6
+	
+	if bullets == 0:
+		is_playing = false
+		player.unlock_player(self)
+		player.hide_revolver()
+		for target in targets:
+			target.hide()
+		score = 0
+		$Score.hide()
+		$Bullets.hide()
+	$Score.text = str(score)
+	$Bullets.text = "Bullets: " + str(bullets)
 
