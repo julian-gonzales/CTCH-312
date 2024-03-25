@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://bn3q7upes2ojm"]
+[gd_scene load_steps=9 format=3 uid="uid://bn3q7upes2ojm"]
 
 [ext_resource type="Script" path="res://Scripts/Player.gd" id="1_dgfqc"]
 [ext_resource type="PackedScene" uid="uid://di8iw88n3o0uu" path="res://Systems/Interaction/PlayerInteractor.tscn" id="2_vcwhj"]
 [ext_resource type="PackedScene" uid="uid://brgmrsjltk2ln" path="res://Systems/ShooterGame/Revolver.tscn" id="3_g56go"]
 [ext_resource type="Script" path="res://Scenes/PlayerCamera.gd" id="3_gihyh"]
 [ext_resource type="PackedScene" uid="uid://buxbv534u5mii" path="res://Systems/DartGame/HandDart.tscn" id="3_tq5y3"]
+[ext_resource type="Texture2D" uid="uid://ck1fm2jkgclke" path="res://Systems/ShooterGame/crosshair161.png" id="6_c5r5s"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_nnput"]
 
@@ -41,5 +42,12 @@ visible = false
 [node name="Revolver" parent="Head/Camera3D" instance=ExtResource("3_g56go")]
 transform = Transform3D(0.003, 0, 0, 0, 0.003, 0, 0, 0, 0.003, 0.427233, -0.583953, -0.849201)
 visible = false
+
+[node name="TextureRect" type="TextureRect" parent="Head/Camera3D"]
+offset_left = 924.0
+offset_top = 476.0
+offset_right = 996.0
+offset_bottom = 548.0
+texture = ExtResource("6_c5r5s")
 
 [editable path="Head/PlayerInteractor"]

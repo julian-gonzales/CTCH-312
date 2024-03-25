@@ -22,15 +22,36 @@ shape = SubResource("BoxShape3D_g2qpj")
 
 [node name="ShootingTarget" parent="." instance=ExtResource("3_djl3m")]
 transform = Transform3D(7, 0, 0, 0, 7, 0, 0, 0, 7, -3.35151, 0.5, -9.22354)
+visible = false
 
 [node name="ShootingTarget2" parent="." instance=ExtResource("3_djl3m")]
-transform = Transform3D(7, 0, 0, 0, 7, 0, 0, 0, 7, 2.59943, 0.5, -11.0418)
+transform = Transform3D(7, 0, 0, 0, 7, 0, 0, 0, 7, 2.59943, 0.5, -15.1471)
+visible = false
+up = true
 
 [node name="ShootingTarget3" parent="." instance=ExtResource("3_djl3m")]
-transform = Transform3D(7, 0, 0, 0, 7, 0, 0, 0, 7, -2.28691, 0.5, -12.7489)
+transform = Transform3D(7, 0, 0, 0, 7, 0, 0, 0, 7, -2.28691, 0.5, -20.1013)
+visible = false
 
 [node name="ShootingTarget4" parent="." instance=ExtResource("3_djl3m")]
-transform = Transform3D(7, 0, 0, 0, 7, 0, 0, 0, 7, 1.28586, 0.5, -14.3849)
+transform = Transform3D(7, 0, 0, 0, 7, 0, 0, 0, 7, -4.92812, 0.5, -27.0241)
+visible = false
+up = true
+
+[node name="ShootingTarget5" parent="." instance=ExtResource("3_djl3m")]
+transform = Transform3D(7, 0, 0, 0, 7, 0, 0, 0, 7, 6.18528, 0.5, -35.2109)
+visible = false
+
+[node name="ShootingTarget6" parent="." instance=ExtResource("3_djl3m")]
+transform = Transform3D(7, 0, 0, 0, 7, 0, 0, 0, 7, 1.28586, 0.5, -41.9951)
+visible = false
+up = true
+
+[node name="Score" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.41181, 1.39806, 0)
+visible = false
+text = "12"
+font_size = 64
 
 [connection signal="focused" from="Interactable" to="." method="_on_interactable_focused"]
 [connection signal="interacted" from="Interactable" to="." method="_on_interactable_interacted"]

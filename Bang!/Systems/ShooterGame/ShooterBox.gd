@@ -4,29 +4,53 @@ extends CSGBox3D
 @export var camera: Camera3D
 var is_playing: bool = false
 var is_throwing: bool = false
-var Ray_Range = 2000
+var Ray_Range = 100
+
+var targets = []
+var score: int = 0
 
 func _on_interactable_focused(interactor):
-	print("in focus")
+	#print("in focus")
+	pass
+
+func _ready():
+	targets.append(get_node("ShootingTarget"))
+	targets.append(get_node("ShootingTarget2"))
+	targets.append(get_node("ShootingTarget3"))
+	targets.append(get_node("ShootingTarget4"))
+	targets.append(get_node("ShootingTarget5"))
+	targets.append(get_node("ShootingTarget6"))
+	$Score.text = str(score)
 	
 func _input(event):
-	if event.is_action("shoot") and is_playing:
+	if event.is_action_pressed("shoot") and is_playing:
 		get_camera_collision()
+		if (score % 6) == 0:
+			for target in targets:
+				target.show()
 
 func _on_interactable_interacted(interactor):
-	print("interacted")
 	is_playing = !is_playing
 	if(is_playing):
 		var player_position = get_player_position()
 		player.place_and_lock_player(player_position, self)
 		player.show_revolver()
+		$Score.show()
+		for target in targets:
+			target.show()
 	else:
 		player.unlock_player(self)
 		player.hide_revolver()
+		for target in targets:
+			target.hide()
+		score = 0
+		$Score.hide()
+		$Score.text = str(score)
 
 
 func _on_interactable_unfocused(interactor):
-	print("out of focus")
+	#print("out of focus")
+	pass
 
 func get_player_position() -> Vector3:
 	var box_pos = $".".position
@@ -48,8 +72,11 @@ func get_camera_collision():
 	
 	if not intersection.is_empty():
 		print(intersection.collider.name)
-		intersection.collider.hide()
-		intersection.collider.get_parent().hide()
+		if intersection.collider.name == "Target":
+			intersection.collider.get_parent().hide()
+			score += 1
 	else:
 		print("Nothing")
+		
+	$Score.text = str(score)
 
