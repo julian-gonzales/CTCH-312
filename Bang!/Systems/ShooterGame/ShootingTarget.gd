@@ -10,9 +10,9 @@ func _ready():
 	
 func _physics_process(delta):
 	
-	if position.x >= 5:
+	if position.x >= 2.596:
 		up = false
-	if position.x <= -5:
+	if position.x <= -2.825:
 		up = true
 	
 	if up == true:

@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://ctaj51fo7vkvq"]
+
+[ext_resource type="PackedScene" uid="uid://ctqtafyd48lte" path="res://Models/SaloonFrame/day1._building_frame.glb" id="1_v577s"]
+
+[node name="BuildingFrame" instance=ExtResource("1_v577s")]

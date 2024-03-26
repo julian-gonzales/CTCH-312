@@ -1,13 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://d0l164yq0wuw8"]
+[gd_scene load_steps=8 format=3 uid="uid://d0l164yq0wuw8"]
 
-[ext_resource type="Texture2D" uid="uid://cokyput8tqol2" path="res://Art/Wood04_basecolor.jpg" id="1_12cjn"]
 [ext_resource type="PackedScene" uid="uid://bn3q7upes2ojm" path="res://Scenes/player.tscn" id="1_ptpdc"]
 [ext_resource type="PackedScene" uid="uid://4g7hsk4l53k5" path="res://Systems/DartGame/DartGame.tscn" id="2_eoq0f"]
 [ext_resource type="PackedScene" uid="uid://cdedwhmsht3ak" path="res://Systems/ShooterGame/ShooterGame.tscn" id="2_nnvxg"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ny4lt"]
-albedo_texture = ExtResource("1_12cjn")
-uv1_triplanar = true
+[ext_resource type="PackedScene" uid="uid://dm14baoxjy0ma" path="res://Scenes/final_saloon.tscn" id="4_1kixx"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_632y0"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -27,20 +23,18 @@ glow_enabled = true
 [node name="Stage" type="Node3D" parent="."]
 transform = Transform3D(1, -1.49012e-08, -1.49012e-08, -1.49012e-08, 1, -2.98023e-08, -1.49012e-08, 0, 1, 1.19209e-07, -4.76837e-07, -2.38419e-07)
 
-[node name="Floor" type="CSGBox3D" parent="Stage"]
-transform = Transform3D(1, 0, 0, -4.4409e-16, 1, 0, 0, 0, 1, 0, -0.5, 0)
-use_collision = true
-size = Vector3(50, 1, 50)
-material = SubResource("StandardMaterial3D_ny4lt")
-metadata/_edit_lock_ = true
-
 [node name="DartGame" parent="Stage" node_paths=PackedStringArray("player") instance=ExtResource("2_eoq0f")]
-transform = Transform3D(0.03, 0, 0, 0, -1.31134e-09, -0.03, 0, 0.03, -1.31134e-09, 5, 1.8, -9.111)
+transform = Transform3D(0.03, 0, 8.21504e-18, -1.33227e-17, -1.31134e-09, -0.03, 0, 0.03, -1.31134e-09, 3.50263, 1.8, 5)
 player = NodePath("../../Player")
 
 [node name="ShooterBox" parent="Stage" node_paths=PackedStringArray("player", "camera") instance=ExtResource("2_nnvxg")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 2.9567e-17, -1, 0, -4.37114e-08, 10.627, 0.5, -11.1525)
 player = NodePath("../../Player")
 camera = NodePath("../../Player/Head/Camera3D")
+metadata/_edit_lock_ = true
+
+[node name="Final_Saloon" parent="Stage" instance=ExtResource("4_1kixx")]
+metadata/_edit_lock_ = true
 
 [node name="Environment" type="Node3D" parent="."]
 

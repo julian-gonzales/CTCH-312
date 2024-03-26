@@ -97,6 +97,7 @@ func get_camera_collision():
 		for target in targets:
 			target.hide()
 		score = 0
+		bullets += 6
 		$Score.hide()
 		$Bullets.hide()
 	$Score.text = str(score)

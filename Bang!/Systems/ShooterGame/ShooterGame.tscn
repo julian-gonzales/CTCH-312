@@ -9,7 +9,7 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_g2qpj"]
 
 [node name="ShooterBox" type="CSGBox3D"]
-transform = Transform3D(1, 0, 0, -4.4409e-16, 1, 0, 0, 0, 1, -1.35759e-07, 0.5, -9.11062)
+transform = Transform3D(1, 0, 0, -4.4409e-16, 1, 0, 0, 0, 1, -1.35759e-07, 0.5, -8.71514)
 use_collision = true
 size = Vector3(1, 0.5, 1)
 material = SubResource("StandardMaterial3D_vi2kl")
@@ -21,30 +21,24 @@ script = ExtResource("1_um3de")
 shape = SubResource("BoxShape3D_g2qpj")
 
 [node name="ShootingTarget" parent="." instance=ExtResource("3_djl3m")]
-transform = Transform3D(7, 0, 0, 0, 7, 0, 0, 0, 7, -3.35151, 0.5, -9.22354)
-visible = false
+transform = Transform3D(7, 0, 0, 0, 7, 0, 0, 0, 7, 2.596, 0.5, -2.6)
 
 [node name="ShootingTarget2" parent="." instance=ExtResource("3_djl3m")]
-transform = Transform3D(7, 0, 0, 0, 7, 0, 0, 0, 7, 2.59943, 0.5, -15.1471)
-visible = false
+transform = Transform3D(7, 0, 0, 0, 7, 0, 0, 0, 7, -2.825, 0.5, -5.283)
 up = true
 
 [node name="ShootingTarget3" parent="." instance=ExtResource("3_djl3m")]
-transform = Transform3D(7, 0, 0, 0, 7, 0, 0, 0, 7, -2.28691, 0.5, -20.1013)
-visible = false
+transform = Transform3D(7, 0, 0, 0, 7, 0, 0, 0, 7, 0.056, 0.5, -8.107)
 
 [node name="ShootingTarget4" parent="." instance=ExtResource("3_djl3m")]
-transform = Transform3D(7, 0, 0, 0, 7, 0, 0, 0, 7, -4.92812, 0.5, -27.0241)
-visible = false
+transform = Transform3D(7, 0, 0, 0, 7, 0, 0, 0, 7, -0.045, 0.5, -11.109)
 up = true
 
 [node name="ShootingTarget5" parent="." instance=ExtResource("3_djl3m")]
-transform = Transform3D(7, 0, 0, 0, 7, 0, 0, 0, 7, 6.18528, 0.5, -35.2109)
-visible = false
+transform = Transform3D(7, 0, 0, 0, 7, 0, 0, 0, 7, 0.32, 0.5, -14.2)
 
 [node name="ShootingTarget6" parent="." instance=ExtResource("3_djl3m")]
-transform = Transform3D(7, 0, 0, 0, 7, 0, 0, 0, 7, 1.28586, 0.5, -41.9951)
-visible = false
+transform = Transform3D(7, 0, 0, 0, 7, 0, 0, 0, 7, 1.28586, 0.5, -17.2498)
 up = true
 
 [node name="Score" type="Label3D" parent="."]
