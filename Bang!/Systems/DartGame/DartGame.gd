@@ -2,35 +2,47 @@ extends CSGCylinder3D
 
 @export var player: Player
 
-var SCORES = [20, 5, 12, 9, 14, 11, 8, 16, 7, 19, 3, 17, 2, 15, 10	, 6, 13, 4, 18, 1]
+const SCORES = [20, 5, 12, 9, 14, 11, 8, 16, 7, 19, 3, 17, 2, 15, 10, 6, 13, 4, 18, 1]
 var is_playing: bool = false
 var is_throwing: bool = false
+var is_setup: bool = true
 
-var darts_used = 0
+var total_darts_thrown = 0
+var round_darts_used = 0
 var score_remaining = 501
 
-func _ready():
-	pass
+var perfect_win_count = 0
+var perfect_win_color_state = 0
+const PERFECT_WIN_COLORS = [Color.RED, Color.ORANGE_RED, Color.YELLOW, Color.GREEN, Color.BLUE, Color.DODGER_BLUE, Color.INDIGO]
 
-func _on_interactable_focused(interactor):
-	pass
+signal update_score(score: int, is_double: bool, is_triple: bool)
+
+func _ready():
+	#Ensure labels start with hidden
+	$SelectionLabels.visible = false
+	$GameLabels.visible = false
 
 func _input(event):
 	if(score_remaining==0):
 		return
 	
 	if ((Input.is_action_just_pressed("shoot") || Input.is_action_just_pressed("jump")) && is_playing && !is_throwing):
-		if(darts_used==3):
+		if(is_setup):
+			throw_dart()
+			return
+
+		if(round_darts_used==3):
 			clean_up_darts()
 			clear_turn_score()
-			darts_used = 0
+			round_darts_used = 0
 		throw_dart()
-		darts_used += 1
+		round_darts_used += 1
+		total_darts_thrown +=1
 		is_throwing = true
 
 func _on_interactable_interacted(interactor) -> void:
 	is_throwing = false
-	toggle_label_visibility()
+	
 	
 	is_playing = !is_playing
 	if(is_playing):
@@ -40,23 +52,45 @@ func _on_interactable_interacted(interactor) -> void:
 		player.show_dart()
 		set_dart_board_interaction_depth(20)
 		
-		score_remaining = 501
-		darts_used = 0
-		$TotalScoreLabel.text = "Score: " + str(score_remaining)
-		$TotalScoreLabel.modulate = Color.WHITE
+		total_darts_thrown = 0
+		round_darts_used = 0
 		clear_turn_score()
+		
+		toggle_selection_label_visibility()
 	else:
 		player.unlock_player(self)
 		player.hide_dart()
 		set_dart_board_interaction_depth(3)
+		$PerfectWinTimer.stop()
 		clean_up_darts()
+		
+		#Hide current label
+		if(is_setup):
+			toggle_selection_label_visibility()
+		else:
+			toggle_game_label_visibility()
+		
+		#Reset for next game
+		is_setup = true
+		score_remaining = 501
+		if(update_score.is_connected(update_score_game_total_to_0)):
+			update_score.disconnect(update_score_game_total_to_0)
+		elif(update_score.is_connected(update_score_game_around_the_world)):
+			update_score.disconnect(update_score_game_around_the_world)
 
-func _on_interactable_unfocused(interactor):
-	pass
+func toggle_selection_label_visibility():
+	$SelectionLabels.visible = !$SelectionLabels.visible
 
-func toggle_label_visibility():
-	$TotalScoreLabel.visible = !$TotalScoreLabel.visible
-	$RoundScores.visible = !$RoundScores.visible
+func toggle_game_label_visibility():
+	$GameLabels.visible = !$GameLabels.visible
+
+func reset_game_labels():
+	$GameLabels/ScoreCountLabel.text = str(score_remaining)
+	$GameLabels/DartsCountLabel.text = str(total_darts_thrown)
+	$GameLabels/TotalDartsLabel.modulate = Color.WHITE
+	$GameLabels/DartsCountLabel.modulate = Color.WHITE
+	$GameLabels/TotalScoreLabel.modulate = Color.WHITE
+	$GameLabels/ScoreCountLabel.modulate = Color.WHITE
 
 func set_dart_board_interaction_depth(height: float) -> void:
 	$StartEndInteractable/CollisionShape3D.shape.height = height
@@ -75,11 +109,12 @@ func clean_up_darts() -> void:
 		dart.queue_free()
 
 func clear_turn_score() -> void:
-	for score in $RoundScores.get_children():
+	for score in $GameLabels/RoundScores.get_children():
 		score.queue_free()
 
 func dart_timer_timeout() -> void:
-	darts_used -=1
+	round_darts_used -=1
+	total_darts_thrown -=1
 	player.show_dart()
 	is_throwing = false
 
@@ -126,25 +161,38 @@ func _on_game_board_shape_body_entered(body) -> void:
 	var distance_to_center = hit_point.length() * 10000
 	
 	var score
-	var is_winnable: bool = false
+	var is_double: bool = false
+	var is_triple: bool = false
 	if(distance_to_center < 9): 	#Bullseye
 		score = 50
-		is_winnable = true
 	elif(distance_to_center < 18.): #Bull ring
 		score = 25
 	elif(distance_to_center < 100): #Inner ring
 		score = get_section_score(hit_point)
 	elif(distance_to_center < 110): #Triples ring
 		score = 3 * get_section_score(hit_point)
+		is_triple = true
 	elif(distance_to_center < 175): #Outer ring
 		score = get_section_score(hit_point)
 	elif(distance_to_center < 185): #Doubles ring
 		score = 2 * get_section_score(hit_point)
-		is_winnable = true
+		is_double = true
 	else:							#Out of bounds
 		score = 0
 	
-	update_score(score, is_winnable)
+	if(is_setup):
+		var original_score = score
+		
+		#Remove triple/double to just get slice
+		if(is_double):original_score /= 2
+		elif(is_triple):original_score /= 3
+		
+		player.show_dart()
+		is_throwing = false
+		start_game(original_score)
+		return
+	
+	update_score.emit(score, is_double, is_triple)
 	player.show_dart()
 	is_throwing = false
 
@@ -157,32 +205,112 @@ func get_section_score(hit_point: Vector2) -> int:
 		section +=20
 	return SCORES[section]
 
-func update_score(score: int, is_winnable: bool) -> void:
+func change_label_colors_win():
+	$GameLabels/TotalScoreLabel.modulate = Color.GREEN
+	$GameLabels/ScoreCountLabel.modulate = Color.GREEN
+	if(total_darts_thrown == perfect_win_count):
+		perfect_win_color_state = 0
+		$PerfectWinTimer.start()
+
+func _on_perfect_win_timer_timeout():
+	$GameLabels/TotalDartsLabel.modulate = PERFECT_WIN_COLORS[perfect_win_color_state]
+	$GameLabels/DartsCountLabel.modulate = PERFECT_WIN_COLORS[perfect_win_color_state]
+	
+	if(perfect_win_color_state == 6):
+		perfect_win_color_state = 0
+	else:
+		perfect_win_color_state += 1
+
+func update_score_game_total_to_0(score: int, is_double: bool, is_triple: bool) -> void:
 	#Scoring logic
 	var bust: bool = true
 	if(score_remaining - score > 1):
 		score_remaining -= score
 		bust = false
-	elif(score_remaining - score == 0 and is_winnable):
+	elif(score_remaining - score == 0 and (is_double || score == 50)):
 		score_remaining -= score
-		$TotalScoreLabel.modulate = Color.GREEN
+		change_label_colors_win()
 		bust = false
 	
 	#Update UI
-	$TotalScoreLabel.text = "Score: " + str(score_remaining)
+	$GameLabels/ScoreCountLabel.text = str(score_remaining)
+	$GameLabels/DartsCountLabel.text = str(total_darts_thrown)
+	add_round_score_label(score, bust)
+
+	#Prevent additional throws on a turn
+	if(bust):
+		round_darts_used = 3
+
+func update_score_game_around_the_world(score: int, is_double: bool, is_triple: bool):
+	#Give slice value
+	if(is_double): score /= 2
+	elif(is_triple): score /=3
 	
+	
+	#Scoring logic
+	var bust: bool = true
+	if(score==score_remaining && score == 20):
+		score_remaining = 0
+		change_label_colors_win()
+		bust = false
+	elif(score==score_remaining):
+		score_remaining +=1
+		bust = false
+	
+	#Update UI
+	$GameLabels/ScoreCountLabel.text = str(score_remaining)
+	$GameLabels/DartsCountLabel.text = str(total_darts_thrown)
+	add_round_score_label(score, bust)
+
+func add_round_score_label(score: int, is_bust = true):
 	var new_label = Label3D.new()
 	new_label.font = load("res://Art/Fonts/SpaceMono/SpaceMono-Regular.ttf")
 	new_label.font_size = 2000
 	new_label.outline_size = 127
 	new_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	new_label.text = "-" + str(score)
-	new_label.global_position = $RoundScores.global_position
-	new_label.global_position.y -= (darts_used * 10)
-	if(bust):
+	new_label.global_position = $GameLabels/RoundScores.global_position
+	new_label.global_position.y -= (round_darts_used * 10)
+	if(is_bust):
 		new_label.modulate = Color.RED
-	$RoundScores.add_child(new_label)
+	$GameLabels/RoundScores.add_child(new_label)
 
-	#Prevent additional throws on a turn
-	if(bust):
-		darts_used = 3
+func start_game(score: int):
+	#Invalid input
+	if (score < 1 || score >4):
+		return
+	
+	#Reset text to default:
+	$GameLabels/TotalScoreLabel.text = "SCORE:"
+
+	#701 to 0
+	if(score == 1):
+		update_score.connect(update_score_game_total_to_0)
+		score_remaining = 701
+		perfect_win_count = 12
+	#501 to 0
+	elif(score == 2):
+		update_score.connect(update_score_game_total_to_0)
+		score_remaining = 501
+		perfect_win_count = 9
+	#301 to 0
+	elif(score == 3):
+		update_score.connect(update_score_game_total_to_0)
+		score_remaining = 301
+		perfect_win_count = 6
+	#Around the World
+	elif(score == 4):
+		update_score.connect(update_score_game_around_the_world)
+		score_remaining = 1
+		perfect_win_count = 20
+		$GameLabels/TotalScoreLabel.text = "NEXT:"
+	
+	#Timeout to show dart
+	await get_tree().create_timer(0.2).timeout
+	
+	#Cleanup and reset
+	clean_up_darts()
+	reset_game_labels()
+	toggle_selection_label_visibility()
+	toggle_game_label_visibility()
+	is_setup = false
