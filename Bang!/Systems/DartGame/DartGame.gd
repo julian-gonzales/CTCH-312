@@ -10,17 +10,20 @@ var is_setup: bool = true
 var total_darts_thrown = 0
 var round_darts_used = 0
 var score_remaining = 501
+var dart_game_mode = Global.DART_MODE.FIVE_HUNDRED_ONE
 
 var perfect_win_count = 0
 var perfect_win_color_state = 0
 const PERFECT_WIN_COLORS = [Color.RED, Color.ORANGE_RED, Color.YELLOW, Color.GREEN, Color.BLUE, Color.DODGER_BLUE, Color.INDIGO]
 
 signal update_score(score: int, is_double: bool, is_triple: bool)
+signal update_high_score(mode: int)
 
 func _ready():
 	#Ensure labels start with hidden
 	$SelectionLabels.visible = false
 	$GameLabels.visible = false
+	Global.initialize_dart_scores()
 
 func _input(event):
 	if(score_remaining==0):
@@ -229,6 +232,8 @@ func update_score_game_total_to_0(score: int, is_double: bool, is_triple: bool) 
 		bust = false
 	elif(score_remaining - score == 0 and (is_double || score == 50)):
 		score_remaining -= score
+		Global.find_and_replace_dart_score(total_darts_thrown, dart_game_mode)
+		update_high_score.emit(dart_game_mode)
 		change_label_colors_win()
 		bust = false
 	
@@ -251,6 +256,8 @@ func update_score_game_around_the_world(score: int, is_double: bool, is_triple: 
 	var bust: bool = true
 	if(score==score_remaining && score == 20):
 		score_remaining = 0
+		Global.find_and_replace_dart_score(total_darts_thrown, dart_game_mode)
+		update_high_score.emit(dart_game_mode)
 		change_label_colors_win()
 		bust = false
 	elif(score==score_remaining):
@@ -288,21 +295,25 @@ func start_game(score: int):
 		update_score.connect(update_score_game_total_to_0)
 		score_remaining = 701
 		perfect_win_count = 12
+		dart_game_mode = Global.DART_MODE.SEVEN_HUNDRED_ONE
 	#501 to 0
 	elif(score == 2):
 		update_score.connect(update_score_game_total_to_0)
 		score_remaining = 501
 		perfect_win_count = 9
+		dart_game_mode = Global.DART_MODE.FIVE_HUNDRED_ONE
 	#301 to 0
 	elif(score == 3):
 		update_score.connect(update_score_game_total_to_0)
 		score_remaining = 301
 		perfect_win_count = 6
+		dart_game_mode = Global.DART_MODE.THREE_HUNDRED_ONE
 	#Around the World
 	elif(score == 4):
 		update_score.connect(update_score_game_around_the_world)
 		score_remaining = 1
 		perfect_win_count = 20
+		dart_game_mode = Global.DART_MODE.AROUND_THE_WORLD
 		$GameLabels/TotalScoreLabel.text = "NEXT:"
 	
 	#Timeout to show dart
