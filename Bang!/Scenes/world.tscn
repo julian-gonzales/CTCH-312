@@ -1,9 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://d0l164yq0wuw8"]
+[gd_scene load_steps=10 format=3 uid="uid://d0l164yq0wuw8"]
 
 [ext_resource type="PackedScene" uid="uid://bn3q7upes2ojm" path="res://Scenes/player.tscn" id="1_ptpdc"]
 [ext_resource type="PackedScene" uid="uid://4g7hsk4l53k5" path="res://Systems/DartGame/DartGame.tscn" id="2_eoq0f"]
 [ext_resource type="PackedScene" uid="uid://cdedwhmsht3ak" path="res://Systems/ShooterGame/ShooterGame.tscn" id="2_nnvxg"]
 [ext_resource type="PackedScene" uid="uid://dm14baoxjy0ma" path="res://Scenes/final_saloon.tscn" id="4_1kixx"]
+[ext_resource type="AudioStream" uid="uid://c36espuk1hje0" path="res://Scenes/audiomass-output.mp3" id="4_m1y41"]
+[ext_resource type="PackedScene" uid="uid://ckoo5akp01wc7" path="res://Scenes/scoreboard.tscn" id="5_08jvt"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_632y0"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -35,6 +37,14 @@ metadata/_edit_lock_ = true
 
 [node name="Final_Saloon" parent="Stage" instance=ExtResource("4_1kixx")]
 
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Stage"]
+stream = ExtResource("4_m1y41")
+volume_db = -22.0
+autoplay = true
+
+[node name="Scoreboard" parent="Stage" instance=ExtResource("5_08jvt")]
+transform = Transform3D(-4.37114e-08, -9.86079e-31, -0.675, 0, 0.63, 3.08617e-16, 1, -7.94093e-23, -2.95052e-08, 4.30147, -1.55728, -7.38794)
+
 [node name="Environment" type="Node3D" parent="."]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Environment"]
@@ -46,5 +56,8 @@ shadow_enabled = true
 
 [node name="Player" parent="." instance=ExtResource("1_ptpdc")]
 
+[connection signal="update_high_score" from="Stage/ShooterBox" to="Stage/Scoreboard" method="_on_shooter_box_update_high_score"]
+
+[editable path="Stage/Scoreboard"]
 [editable path="Player"]
 [editable path="Player/Head/PlayerInteractor"]

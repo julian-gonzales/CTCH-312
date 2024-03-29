@@ -1,0 +1,127 @@
+[gd_scene load_steps=3 format=3 uid="uid://ckoo5akp01wc7"]
+
+[ext_resource type="PackedScene" uid="uid://dldhofvxwrxty" path="res://Models/Scoreboard/reversible_chalkboard.glb" id="1_r3wnc"]
+[ext_resource type="Script" path="res://Scenes/scoreboard.gd" id="2_l8owr"]
+
+[node name="Scoreboard" instance=ExtResource("1_r3wnc")]
+transform = Transform3D(1, 0, 0, 0, 0.63, 0, 0, 0, 0.675, 0, 0, 0)
+script = ExtResource("2_l8owr")
+
+[node name="Cube__0" parent="Sketchfab_model/05fce9eb56224269989960ee0a5cee14_fbx/RootNode/Cube" index="0"]
+visible = false
+
+[node name="RangeScores" type="Node3D" parent="." index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="Title" type="Label3D" parent="RangeScores" index="0"]
+transform = Transform3D(-4.37113e-08, 0, 0.999999, 0, 1, 0, -0.999998, 0, -4.37113e-08, 0.147147, 9.30304, -1.89976)
+text = "RANGE"
+font_size = 92
+
+[node name="Score1" type="Label3D" parent="RangeScores" index="1"]
+transform = Transform3D(-4.37113e-08, 0, 0.999998, 0, 1, 0, -0.999998, 0, -4.37113e-08, 0.147147, 8.70084, -1.89976)
+text = "1"
+font_size = 72
+
+[node name="Score2" type="Label3D" parent="RangeScores" index="2"]
+transform = Transform3D(-4.37113e-08, 0, 0.999998, 0, 1, 0, -0.999998, 0, -4.37113e-08, 0.147147, 8.2152, -1.89976)
+text = "1"
+font_size = 72
+
+[node name="Score3" type="Label3D" parent="RangeScores" index="3"]
+transform = Transform3D(-4.37113e-08, 0, 0.999998, 0, 1, 0, -0.999998, 0, -4.37113e-08, 0.147147, 7.7684, -1.89976)
+text = "1"
+font_size = 72
+
+[node name="Score4" type="Label3D" parent="RangeScores" index="4"]
+transform = Transform3D(-4.37113e-08, 0, 0.999998, 0, 1, 0, -0.999998, 0, -4.37113e-08, 0.147147, 7.33132, -1.89976)
+text = "1"
+font_size = 72
+
+[node name="Score5" type="Label3D" parent="RangeScores" index="5"]
+transform = Transform3D(-4.37113e-08, 0, 0.999998, 0, 1, 0, -0.999998, 0, -4.37113e-08, 0.147147, 6.89424, -1.89976)
+text = "1"
+font_size = 72
+
+[node name="Score6" type="Label3D" parent="RangeScores" index="6"]
+transform = Transform3D(-4.37113e-08, 0, 0.999998, 0, 1, 0, -0.999998, 0, -4.37113e-08, 0.147147, 6.44745, -1.89976)
+text = "1"
+font_size = 72
+
+[node name="Score7" type="Label3D" parent="RangeScores" index="7"]
+transform = Transform3D(-4.37113e-08, 0, 0.999998, 0, 1, 0, -0.999998, 0, -4.37113e-08, 0.147147, 6.02979, -1.89976)
+text = "1"
+font_size = 72
+
+[node name="Score8" type="Label3D" parent="RangeScores" index="8"]
+transform = Transform3D(-4.37113e-08, 0, 0.999998, 0, 1, 0, -0.999998, 0, -4.37113e-08, 0.147147, 5.57329, -1.89976)
+text = "1"
+font_size = 72
+
+[node name="Score9" type="Label3D" parent="RangeScores" index="9"]
+transform = Transform3D(-4.37113e-08, 0, 0.999998, 0, 1, 0, -0.999998, 0, -4.37113e-08, 0.147147, 5.11678, -1.89976)
+text = "1"
+font_size = 72
+
+[node name="Score10" type="Label3D" parent="RangeScores" index="10"]
+transform = Transform3D(-4.37113e-08, 0, 0.999998, 0, 1, 0, -0.999998, 0, -4.37113e-08, 0.147147, 4.68942, -1.89976)
+text = "1"
+font_size = 72
+
+[node name="DartsScores" type="Node3D" parent="." index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.9525)
+
+[node name="Title" type="Label3D" parent="DartsScores" index="0"]
+transform = Transform3D(-4.37113e-08, 0, 0.999998, 0, 1, 0, -0.999998, 0, -4.37113e-08, 0.147147, 9.30304, -1.89976)
+text = "DARTS"
+font_size = 92
+
+[node name="Score1" type="Label3D" parent="DartsScores" index="1"]
+transform = Transform3D(-4.37113e-08, 0, 0.999998, 0, 1, 0, -0.999998, 0, -4.37113e-08, 0.147147, 8.70084, -1.89976)
+text = "1"
+font_size = 72
+
+[node name="Score2" type="Label3D" parent="DartsScores" index="2"]
+transform = Transform3D(-4.37113e-08, 0, 0.999998, 0, 1, 0, -0.999998, 0, -4.37113e-08, 0.147147, 8.2152, -1.89976)
+text = "1"
+font_size = 72
+
+[node name="Score3" type="Label3D" parent="DartsScores" index="3"]
+transform = Transform3D(-4.37113e-08, 0, 0.999998, 0, 1, 0, -0.999998, 0, -4.37113e-08, 0.147147, 7.7684, -1.89976)
+text = "1"
+font_size = 72
+
+[node name="Score4" type="Label3D" parent="DartsScores" index="4"]
+transform = Transform3D(-4.37113e-08, 0, 0.999998, 0, 1, 0, -0.999998, 0, -4.37113e-08, 0.147147, 7.33132, -1.89976)
+text = "1"
+font_size = 72
+
+[node name="Score5" type="Label3D" parent="DartsScores" index="5"]
+transform = Transform3D(-4.37113e-08, 0, 0.999998, 0, 1, 0, -0.999998, 0, -4.37113e-08, 0.147147, 6.89424, -1.89976)
+text = "1"
+font_size = 72
+
+[node name="Score6" type="Label3D" parent="DartsScores" index="6"]
+transform = Transform3D(-4.37113e-08, 0, 0.999998, 0, 1, 0, -0.999998, 0, -4.37113e-08, 0.147147, 6.44745, -1.89976)
+text = "1"
+font_size = 72
+
+[node name="Score7" type="Label3D" parent="DartsScores" index="7"]
+transform = Transform3D(-4.37113e-08, 0, 0.999998, 0, 1, 0, -0.999998, 0, -4.37113e-08, 0.147147, 6.02979, -1.89976)
+text = "1"
+font_size = 72
+
+[node name="Score8" type="Label3D" parent="DartsScores" index="8"]
+transform = Transform3D(-4.37113e-08, 0, 0.999998, 0, 1, 0, -0.999998, 0, -4.37113e-08, 0.147147, 5.57329, -1.89976)
+text = "1"
+font_size = 72
+
+[node name="Score9" type="Label3D" parent="DartsScores" index="9"]
+transform = Transform3D(-4.37113e-08, 0, 0.999998, 0, 1, 0, -0.999998, 0, -4.37113e-08, 0.147147, 5.11678, -1.89976)
+text = "1"
+font_size = 72
+
+[node name="Score10" type="Label3D" parent="DartsScores" index="10"]
+transform = Transform3D(-4.37113e-08, 0, 0.999998, 0, 1, 0, -0.999998, 0, -4.37113e-08, 0.147147, 4.68942, -1.89976)
+text = "1"
+font_size = 72

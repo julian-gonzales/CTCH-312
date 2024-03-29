@@ -10,6 +10,8 @@ var targets = []
 var score: int = 0
 var bullets: int = 6
 
+signal update_high_score()
+
 func _on_interactable_focused(interactor):
 	#print("in focus")
 	pass
@@ -46,6 +48,8 @@ func _on_interactable_interacted(interactor):
 		player.hide_revolver()
 		for target in targets:
 			target.hide()
+		Global.find_and_replace_shooter_score(score)
+		update_high_score.emit()
 		score = 0
 		bullets = 6
 		$Score.hide()
@@ -68,6 +72,7 @@ func get_player_position() -> Vector3:
 	return Vector3(box_pos.x + x_offset, player.position.y, box_pos.z + z_offset)
 
 func get_camera_collision():
+	$AudioStreamPlayer.play()
 	var centre = camera.get_viewport().get_size()/2
 	
 	var ray_origin = camera.project_ray_origin(centre)
@@ -96,6 +101,8 @@ func get_camera_collision():
 		player.hide_revolver()
 		for target in targets:
 			target.hide()
+		Global.find_and_replace_shooter_score(score)
+		update_high_score.emit()
 		score = 0
 		bullets += 6
 		$Score.hide()

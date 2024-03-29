@@ -24,6 +24,9 @@ func _input(event):
 		head.rotate_x(deg_to_rad(-event.relative.y * MOUSE_SENS))
 		head.rotation.x = clamp(head.rotation.x, deg_to_rad(-90), deg_to_rad(90))
 
+func _process(delta):
+	$Head/Camera3D/SubViewportContainer/SubViewport/SubViewPortCamera.set_global_transform($Head/Camera3D.get_global_transform())
+
 func _physics_process(delta):
 	
 	if Input.is_action_pressed("sprint"):
