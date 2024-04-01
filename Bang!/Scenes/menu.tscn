@@ -1,0 +1,48 @@
+[gd_scene load_steps=6 format=3 uid="uid://caq7athkdptji"]
+
+[ext_resource type="Script" path="res://Scenes/menu.gd" id="1_t2gms"]
+[ext_resource type="Texture2D" uid="uid://blcga8bfl2idf" path="res://Art/title_screen.png" id="2_jsoyb"]
+[ext_resource type="Texture2D" uid="uid://cyjukog3jvhno" path="res://Art/play_button_32x32.png" id="3_yu414"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hnul8"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+texture = ExtResource("3_yu414")
+texture_margin_left = 8.0
+texture_margin_top = 8.0
+texture_margin_right = 8.0
+texture_margin_bottom = 8.0
+
+[sub_resource type="Theme" id="Theme_pe0c7"]
+Button/colors/font_color = Color(0.509804, 0.25098, 0.109804, 1)
+Button/font_sizes/font_size = 33
+Button/styles/normal = SubResource("StyleBoxTexture_hnul8")
+
+[node name="Menu" type="Node2D"]
+script = ExtResource("1_t2gms")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_right = 1920.0
+offset_bottom = 1024.0
+color = Color(0.6, 0.345098, 0.113725, 1)
+metadata/_edit_lock_ = true
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_left = 448.0
+offset_right = 1472.0
+offset_bottom = 1024.0
+texture = ExtResource("2_jsoyb")
+metadata/_edit_lock_ = true
+
+[node name="Button" type="Button" parent="."]
+offset_left = 916.0
+offset_top = 699.0
+offset_right = 1036.0
+offset_bottom = 761.0
+theme = SubResource("Theme_pe0c7")
+text = "PLAY"
+metadata/_edit_use_anchors_ = true
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

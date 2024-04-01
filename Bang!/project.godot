@@ -11,9 +11,10 @@ config_version=5
 [application]
 
 config/name="Ctch-312"
-run/main_scene="res://Scenes/world.tscn"
+run/main_scene="res://Scenes/menu.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
+run/size/viewport_width=1920
 
 [autoload]
 
