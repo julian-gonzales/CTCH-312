@@ -19,3 +19,10 @@ func get_camera_collision():
 		print(intersection.collider.name)
 	else:
 		print("Nothing")
+
+
+func _on_dart_game_toggle_crosshair():
+	if $Crosshair.visible:
+		$Crosshair.hide()
+	else:
+		$Crosshair.show()

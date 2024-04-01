@@ -18,6 +18,7 @@ const PERFECT_WIN_COLORS = [Color.RED, Color.ORANGE_RED, Color.YELLOW, Color.GRE
 
 signal update_score(score: int, is_double: bool, is_triple: bool)
 signal update_high_score(mode: int)
+signal toggle_crosshair()
 
 func _ready():
 	#Ensure labels start with hidden
@@ -60,6 +61,7 @@ func _on_interactable_interacted(interactor) -> void:
 		clear_turn_score()
 		
 		toggle_selection_label_visibility()
+		toggle_crosshair.emit()
 	else:
 		player.unlock_player(self)
 		player.hide_dart()
@@ -80,6 +82,8 @@ func _on_interactable_interacted(interactor) -> void:
 			update_score.disconnect(update_score_game_total_to_0)
 		elif(update_score.is_connected(update_score_game_around_the_world)):
 			update_score.disconnect(update_score_game_around_the_world)
+			
+		toggle_crosshair.emit()
 
 func toggle_selection_label_visibility():
 	$SelectionLabels.visible = !$SelectionLabels.visible

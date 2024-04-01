@@ -44,7 +44,8 @@ visible = false
 transform = Transform3D(0.003, 0, 0, 0, 0.003, 0, 0, 0, 0.003, 0.427233, -0.583953, -0.849201)
 visible = false
 
-[node name="TextureRect" type="TextureRect" parent="Head/Camera3D"]
+[node name="Crosshair" type="TextureRect" parent="Head/Camera3D"]
+visible = false
 offset_left = 924.0
 offset_top = 476.0
 offset_right = 996.0

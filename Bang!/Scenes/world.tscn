@@ -55,7 +55,9 @@ transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75
 shadow_enabled = true
 
 [node name="Player" parent="." instance=ExtResource("1_ptpdc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.73562, 1.30301, 14.5291)
 
+[connection signal="toggle_crosshair" from="Stage/DartGame" to="Player/Head/Camera3D" method="_on_dart_game_toggle_crosshair"]
 [connection signal="update_high_score" from="Stage/DartGame" to="Stage/Scoreboard" method="_on_dart_game_update_high_score"]
 [connection signal="update_high_score" from="Stage/ShooterBox" to="Stage/Scoreboard" method="_on_shooter_box_update_high_score"]
 
