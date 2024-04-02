@@ -36,6 +36,7 @@ func _input(event):
 func _on_interactable_interacted(interactor):
 	is_playing = !is_playing
 	if is_playing :
+		random_starting_pos()
 		var player_position = get_player_position()
 		player.place_and_lock_player(player_position, self)
 		player.show_revolver()
@@ -92,7 +93,7 @@ func get_camera_collision():
 	$Score.text = str(score)
 	$Bullets.text = "Bullets: " + str(bullets)
 	
-	if bullets == 0 and (score % 6 == 0):
+	if bullets == 0 and (score % 6 == 0) and score != 0:
 		bullets += 6
 	
 	if bullets == 0:
@@ -110,3 +111,15 @@ func get_camera_collision():
 	$Score.text = str(score)
 	$Bullets.text = "Bullets: " + str(bullets)
 
+func get_random_pos() -> float:
+	var rng = RandomNumberGenerator.new()
+	print(rng.randf_range(-2.825, 2.596))
+	return rng.randf_range(-2.825, 2.596)
+
+func random_starting_pos():
+	$ShootingTarget.position.x = get_random_pos()
+	$ShootingTarget2.position.x = get_random_pos()
+	$ShootingTarget3.position.x = get_random_pos()
+	$ShootingTarget4.position.x = get_random_pos()
+	$ShootingTarget5.position.x = get_random_pos()
+	$ShootingTarget6.position.x = get_random_pos()
